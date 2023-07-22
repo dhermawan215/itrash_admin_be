@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -19,16 +20,16 @@ class LoginController extends Controller
             {
                 $token = $users->createToken('AuthToken')->plainTextToken;
 
-                return respons()->json(['success' => true, 'akses_token' => $token], 200);
+                return response()->json(['success' => true, 'akses_token' => $token], 200);
             }
             else
             {
-                return respons()->json(['success' => false, 'message' => 'unauthorized'], 401);
+                return response()->json(['success' => false, 'message' => 'unauthorized'], 401);
             }
         }
         else
         {
-            return respons()->json(['success' => false, 'message' => 'unauthorized'], 401);
+            return response()->json(['success' => false, 'message' => 'unauthorized'], 401);
         }
     }
 }
