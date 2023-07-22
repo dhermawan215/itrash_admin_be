@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminKategoriSampah;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +27,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+});
+
+Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group(function () {
+    //admiin dashboard
+    Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
+    //admin kategori sampah
+    Route::get('/kategori-sampah', [AdminKategoriSampah::class, 'index'])->name('admin.kategori_sampah');
+    Route::post('/kategori-sampahs', [AdminKategoriSampah::class, 'getAllData']);
+    Route::post('/kategori-sampah', [AdminKategoriSampah::class, 'store']);
+    Route::patch('/kategori-sampah/{item}', [AdminKategoriSampah::class, 'update']);
 });

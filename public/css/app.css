@@ -1028,6 +1028,9 @@ select {
 .prose :where(.prose > :last-child):not(:where([class~="not-prose"] *)) {
   margin-bottom: 0;
 }
+.collapse {
+  visibility: collapse;
+}
 .fixed {
   position: fixed;
 }
@@ -1055,8 +1058,18 @@ select {
 .z-50 {
   z-index: 50;
 }
+.col-auto {
+  grid-column: auto;
+}
 .col-span-6 {
   grid-column: span 6 / span 6;
+}
+.m-3 {
+  margin: 0.75rem;
+}
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 .mx-auto {
   margin-left: auto;
@@ -1080,11 +1093,20 @@ select {
 .-mt-px {
   margin-top: -1px;
 }
+.mb-0 {
+  margin-bottom: 0px;
+}
+.mb-3 {
+  margin-bottom: 0.75rem;
+}
 .mb-4 {
   margin-bottom: 1rem;
 }
 .mb-6 {
   margin-bottom: 1.5rem;
+}
+.me-1 {
+  margin-inline-end: 0.25rem;
 }
 .ml-1 {
   margin-left: 0.25rem;
@@ -1109,6 +1131,9 @@ select {
 }
 .mr-3 {
   margin-right: 0.75rem;
+}
+.mt-0 {
+  margin-top: 0px;
 }
 .mt-1 {
   margin-top: 0.25rem;
@@ -1145,6 +1170,9 @@ select {
 }
 .inline-flex {
   display: inline-flex;
+}
+.table {
+  display: table;
 }
 .grid {
   display: grid;
@@ -1503,6 +1531,9 @@ select {
   -o-object-fit: cover;
      object-fit: cover;
 }
+.p-0 {
+  padding: 0px;
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -1528,6 +1559,10 @@ select {
 .px-6 {
   padding-left: 1.5rem;
   padding-right: 1.5rem;
+}
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 .py-1 {
   padding-top: 0.25rem;
@@ -1580,6 +1615,9 @@ select {
 .pr-4 {
   padding-right: 1rem;
 }
+.ps-2 {
+  padding-inline-start: 0.5rem;
+}
 .pt-1 {
   padding-top: 0.25rem;
 }
@@ -1606,6 +1644,12 @@ select {
 }
 .text-right {
   text-align: right;
+}
+.text-start {
+  text-align: start;
+}
+.align-middle {
+  vertical-align: middle;
 }
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -1666,6 +1710,10 @@ select {
 }
 .tracking-widest {
   letter-spacing: 0.1em;
+}
+.text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(59 130 246 / var(--tw-text-opacity));
 }
 .text-gray-200 {
   --tw-text-opacity: 1;
