@@ -202,7 +202,7 @@
             </nav>
 
             <main class="content">
-                <h1 class="h3 mb-3"><strong>@yield('main_title')</strong> Dashboard</h1>
+                <h1 class="h3 mb-3"><strong>@yield('main_title')</strong></h1>
                 @yield('admin_content')
             </main>
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\AdminJenisSampah;
 use App\Http\Controllers\AdminKategoriSampah;
 use Illuminate\Support\Facades\Route;
 
@@ -38,4 +39,12 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group
     Route::post('/kategori-sampahs', [AdminKategoriSampah::class, 'getAllData']);
     Route::post('/kategori-sampah', [AdminKategoriSampah::class, 'store']);
     Route::patch('/kategori-sampah/{item}', [AdminKategoriSampah::class, 'update']);
+
+    //admin jenis sampah
+    Route::get('/jenis-sampah', [AdminJenisSampah::class, 'index'])->name('admin.jenis_sampah');
+    Route::post('/jenis-sampahs', [AdminJenisSampah::class, 'getAllData']);
+    Route::get('/jenis-sampah/create', [AdminJenisSampah::class, 'create'])->name('admin.jenis_sampah.create');
+    Route::post('/jenis-sampah', [AdminJenisSampah::class, 'store']);
+    Route::get('/jenis-sampah/{item}/edit', [AdminJenisSampah::class, 'edit'])->name('admin.jenis_sampah.edit');
+    Route::delete('/jenis-sampah/{item}', [AdminJenisSampah::class, 'delete']);
 });

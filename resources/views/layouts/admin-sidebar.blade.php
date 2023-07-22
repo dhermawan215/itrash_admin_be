@@ -21,8 +21,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-in.html">
+            <li class="sidebar-item {{ request()->is('admin/jenis-sampah*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('admin.jenis_sampah') }}">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Jenis Sampah</span>
                 </a>
             </li>
