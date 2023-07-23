@@ -47,6 +47,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group
     Route::get('/jenis-sampah/create', [AdminJenisSampah::class, 'create'])->name('admin.jenis_sampah.create');
     Route::post('/jenis-sampah', [AdminJenisSampah::class, 'store']);
     Route::get('/jenis-sampah/{item}/edit', [AdminJenisSampah::class, 'edit'])->name('admin.jenis_sampah.edit');
+    Route::patch('/jenis-sampah/{item}', [AdminJenisSampah::class, 'update']);
     Route::delete('/jenis-sampah/{item}', [AdminJenisSampah::class, 'delete']);
 
     //admin transaksi
