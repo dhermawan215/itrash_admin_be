@@ -19,8 +19,13 @@ class Transaksi extends Model
         'total',
     ];
 
-    public function userTrransaksi()
+    public function userTransaksi()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function transaksiDetails()
+    {
+        return $this->hasMany(TransaksiDetail::class, 'transaksi_id', 'id');
     }
 }
