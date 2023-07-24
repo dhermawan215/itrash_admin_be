@@ -22,4 +22,9 @@ class TransaksiDetail extends Model
     {
         return $this->belongsTo(JenisSampah::class, 'jenis_sampah_id', 'id');
     }
+
+    public function transaksi()
+    {
+        return $this->belongsTo(transaksi::class, 'transaksi_id', 'id');
+    }
 }

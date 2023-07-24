@@ -23,6 +23,8 @@
                                 <div class="card-body">
                                     <form action="javascript:;" id="formEditJenisSampah" method="post">
                                         @csrf
+                                        @method('PATCH')
+                                        <input type="hidden" name="id" id="id" value="{{ $data->id }}">
                                         <div class="mb-3">
                                             <label for="kategori_sampah" class="form-label">Kategori Sampah</label>
                                             <select name="kategori_sampah_id" id="kategori_sampah" class="form-control">

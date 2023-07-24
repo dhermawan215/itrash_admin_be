@@ -119,6 +119,39 @@ class AdminJenisSampah extends Controller
         ]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $requestAll = $request->all();
+
+        //validasi request masuk
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'nama_sampah' => 'required|string|max:150',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return \response()->json($validator->errors()->all(), 400);
+        }
+
+        //unset token csrf
+        unset($requestAll['_token']);
+        unset($requestAll['_method']);
+
+        $jenisSampah = JenisSampah::findOrFail($id);
+
+        $result = $jenisSampah->update([
+            'kategori_sampah_id' => $requestAll['kategori_sampah_id'],
+            'nama_sampah' => $requestAll['nama_sampah']
+        ]);
+
+        if (!$result) {
+            return response()->json(['success' => \false], 500);
+        }
+        return response()->json(['success' => \true], 200);
+    }
+
     public function delete($id)
     {
         $id2 = \base64_decode($id);
