@@ -35,7 +35,7 @@
             </li>
 
             <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-blank.html">
+                <a class="sidebar-link" href="{{route('admin.pembayaran')}}">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Pembayaran</span>
                 </a>
             </li>

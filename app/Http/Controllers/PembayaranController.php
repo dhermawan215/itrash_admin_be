@@ -7,8 +7,14 @@ use Illuminate\Http\Request;
 
 class PembayaranController extends Controller
 {
+    public function index()
+    {
+        return \view('admin.admin-pembayaran');
+    }
+
     public function prosesPembayaran($transaksi)
     {
+        //memproses log pembayaran saat transaksi berhasil
         $pembayaran = "Pembayaran berhasil dilakukan sebesar: Rp " . number_format($transaksi->total, 0, ",", ".");
         $result = Pembayaran::create([
             'user_id' => $transaksi->user_id,
@@ -27,12 +33,12 @@ class PembayaranController extends Controller
         $limit = $request['length'] ? $request['length'] : 10;
         $globalSearch = $request['search']['value'];
 
-        $query = Pembayaran::with('userTransaksi')->select("*");
+        $query = Pembayaran::with('userPembayaran', 'pembayaranTransaksi')->select("*");
 
-        if ($globalSearch) {
-            $query->where('no_transaksi', 'like', '%' . $globalSearch . '%')
-                ->orWhereDate('tanggal_transaksi', $globalSearch);
-        }
+        // if ($globalSearch) {
+        //     $query->where('no_transaksi', 'like', '%' . $globalSearch . '%')
+        //         ->orWhereDate('tanggal_transaksi', $globalSearch);
+        // }
 
         $recordsFiltered = $query->count();
 
@@ -48,20 +54,21 @@ class PembayaranController extends Controller
         if ($resData->isEmpty()) {
             $data['rnum'] = "#";
             $data['no_tr'] = "Data Kosong";
+            $data['nasabah'] = "Data Kosong";
+            $data['total'] = "Data Kosong";
             $data['tanggal'] = "Data Kosong";
-            $data['user'] = "Data Kosong";
-            $data['status'] = "Data Kosong";
             $data['action'] = "#";
             $arr[] = $data;
         } else {
             foreach ($resData as $key => $value) {
                 $data['rnum'] = $i;
-                $data['no_tr'] = $value->no_transaksi;
-                $data['tanggal'] = $value->tanggal_transaksi;
-                $data['user'] = $value->userTransaksi->name;
-                $data['status'] = $value->status;
+                $data['no_tr'] = $value->pembayaranTransaksi->no_transaksi;
+                $data['nasabah'] = $value->userPembayaran->name;
+                $data['total'] = $value->total;
+                $data['tanggal'] = $value->created_at->format('d-m-Y');
+                $data['keterangan'] = $value->keterangan;
 
-                $data['action'] = '<div class="d-flex"><a href="' . route("admin.transaksi.detail", \base64_encode($value->id)) . '" class="btn btn-sm btn-success"><i class="bi bi-eye"></i></a></div>';
+                $data['action'] = '<div class="d-flex"><button type="button" class="btn btn-sm btn-success "  data-bs-toggle="modal" data-bs-target="#formShowPembayaran"><i class="bi bi-eye"></button></div>';
 
                 $arr[] = $data;
                 $i++;
