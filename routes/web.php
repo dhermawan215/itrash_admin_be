@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminJenisSampah;
 use App\Http\Controllers\AdminKategoriSampah;
+use App\Http\Controllers\AdminTransaksi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,5 +47,21 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group
     Route::get('/jenis-sampah/create', [AdminJenisSampah::class, 'create'])->name('admin.jenis_sampah.create');
     Route::post('/jenis-sampah', [AdminJenisSampah::class, 'store']);
     Route::get('/jenis-sampah/{item}/edit', [AdminJenisSampah::class, 'edit'])->name('admin.jenis_sampah.edit');
+    Route::patch('/jenis-sampah/{item}', [AdminJenisSampah::class, 'update']);
     Route::delete('/jenis-sampah/{item}', [AdminJenisSampah::class, 'delete']);
+
+    //admin transaksi
+    Route::get('/transaksi', [AdminTransaksi::class, 'index'])->name('admin.transaksi');
+    Route::post('/transaksis', [AdminTransaksi::class, 'getAllData']);
+    Route::post('/transaksi', [AdminTransaksi::class, 'store']);
+    Route::patch('/transaksi/proses/{item}', [AdminTransaksi::class, 'prosesTransaksiItem']);
+    Route::get('/transaksi/create', [AdminTransaksi::class, 'create'])->name('admin.transaksi.create');
+    Route::get('/transaksi/{item}', [AdminTransaksi::class, 'detail'])->name('admin.transaksi.detail');
+    Route::post('/transaksi-change-status/{item}', [AdminTransaksi::class, 'chengeStatus']);
+    Route::get('/transaksi/success/{item}', [AdminTransaksi::class, 'success']);
+
+    // admin transaksi detail
+    Route::get('/transaksi-detail/{item}', [AdminTransaksi::class, 'transaksiDetail'])->name('admin.transaksi_detail');
+    Route::post('/transaksi-details', [AdminTransaksi::class, 'dataItemTransaksi']);
+    Route::post('/transaksi-detail', [AdminTransaksi::class, 'transaksiDetailStore']);
 });

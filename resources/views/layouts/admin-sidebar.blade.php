@@ -27,8 +27,8 @@
                 </a>
             </li>
 
-            <li class="sidebar-item">
-                <a class="sidebar-link" href="pages-sign-up.html">
+            <li class="sidebar-item  {{ request()->is('admin/transaksi*') ? 'active' : '' }}">
+                <a class="sidebar-link" href="{{ route('admin.transaksi') }}">
                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Transaksi
                     </span>
                 </a>
