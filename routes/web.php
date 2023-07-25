@@ -63,5 +63,9 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group
     // admin transaksi detail
     Route::get('/transaksi-detail/{item}', [AdminTransaksi::class, 'transaksiDetail'])->name('admin.transaksi_detail');
     Route::post('/transaksi-details', [AdminTransaksi::class, 'dataItemTransaksi']);
+    Route::post('/view-transaksi-details', [AdminTransaksi::class, 'viewItemTransaksi']);
     Route::post('/transaksi-detail', [AdminTransaksi::class, 'transaksiDetailStore']);
+    Route::post('/transaksi-item-detail/{item}', [AdminTransaksi::class, 'transaksiItemDetail']);
+    Route::patch('/transaksi-item-detail/{item}', [AdminTransaksi::class, 'transaksiItemDetailUpdate']);
+    Route::delete('/transaksi-detail/{item}', [AdminTransaksi::class, 'transaksiDetailDelete']);
 });
