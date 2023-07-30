@@ -1,9 +1,11 @@
 <?php
 
-use App\Http\Controllers\API\JenisSampahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoginController;
+use App\Http\Controllers\API\JenisSampahController;
+use App\Http\Controllers\API\PembayaranRestController;
+use App\Http\Controllers\API\TransaksiRestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/auth/logout', [LoginController::class, 'logout']);
+    Route::post('/pembayaran', [PembayaranRestController::class, 'getPembayaran']);
+    Route::post('/transaksi', [TransaksiRestController::class, 'getTransaksi']);
+    Route::post('/transaksi/store', [TransaksiRestController::class, 'saveTransaksi']);
 });
 
 Route::post('/auth/login', [LoginController::class, 'login']);
