@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\AdminJenisSampah;
 use App\Http\Controllers\AdminKategoriSampah;
 use App\Http\Controllers\AdminTransaksi;
+use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,5 +64,13 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'verified', 'admin'])->group
     // admin transaksi detail
     Route::get('/transaksi-detail/{item}', [AdminTransaksi::class, 'transaksiDetail'])->name('admin.transaksi_detail');
     Route::post('/transaksi-details', [AdminTransaksi::class, 'dataItemTransaksi']);
+    Route::post('/view-transaksi-details', [AdminTransaksi::class, 'viewItemTransaksi']);
     Route::post('/transaksi-detail', [AdminTransaksi::class, 'transaksiDetailStore']);
+    Route::post('/transaksi-item-detail/{item}', [AdminTransaksi::class, 'transaksiItemDetail']);
+    Route::patch('/transaksi-item-detail/{item}', [AdminTransaksi::class, 'transaksiItemDetailUpdate']);
+    Route::delete('/transaksi-detail/{item}', [AdminTransaksi::class, 'transaksiDetailDelete']);
+
+    //admin pembayaran
+    Route::get('/pembayaran', [PembayaranController::class, 'index'])->name('admin.pembayaran');
+    Route::post('/pembayarans', [PembayaranController::class, 'getPembayaran']);
 });

@@ -16,21 +16,20 @@ class LoginController extends Controller
     {
         $users = User::where('email', $request->get('email'))->first();
 
-        if(!is_null($users))
-        {
-            if(Hash::check($request->get('password'), $users->password))
-            {
+        if (!is_null($users)) {
+            if (Hash::check($request->get('password'), $users->password)) {
                 $token = $users->createToken('AuthToken')->plainTextToken;
 
-                return response()->json(['success' => true, 'akses_token' => $token], 200);
-            }
-            else
-            {
+                return response()->json([
+                    'success' => true,
+                    'access_token' => $token,
+                    'token_type' => 'Bearer',
+                    'user' => $users
+                ], 200);
+            } else {
                 return response()->json(['success' => false, 'message' => 'unauthorized'], 401);
             }
-        }
-        else
-        {
+        } else {
             return response()->json(['success' => false, 'message' => 'unauthorized'], 401);
         }
     }
@@ -43,20 +42,14 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if($validator->fails()) 
-        {
-            return response()->json(['success' => false, 'message' => $validator->errors()], 400); 
-        }
-        else
-        {
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        } else {
             $users = User::where('email', $request->get('email'))->first();
 
-            if(!is_null($users))
-            {
+            if (!is_null($users)) {
                 return response()->json(['success' => false, 'message' => 'email sudah di pakai !'], 409);
-            }
-            else
-            {
+            } else {
                 DB::table('users')->insert([
                     'email' => $request->get('email'),
                     'name' => $request->get('name'),

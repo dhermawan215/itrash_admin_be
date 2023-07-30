@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\JenisSampahController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\LoginController;
@@ -25,3 +26,4 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::post('/auth/login', [LoginController::class, 'login']);
 Route::post('/auth/register', [LoginController::class, 'register']);
+Route::get('/jenis-sampah', [JenisSampahController::class, 'getAll']);

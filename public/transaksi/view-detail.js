@@ -29,7 +29,7 @@ var Index = (function () {
             processing: true,
             serverSide: true,
             ajax: {
-                url: url + "/admin/transaksi-details",
+                url: url + "/admin/view-transaksi-details",
                 type: "POST",
                 data: {
                     _token: csrf_token,
@@ -72,7 +72,7 @@ var Index = (function () {
                     setTimeout(function () {
                         table.ajax.reload(null, false);
                         $("#formTransakasiItemDetail").trigger("reset");
-                    }, 4000);
+                    }, 2000);
                 },
                 error: function (response) {
                     $.each(response.responseJSON, function (key, value) {
@@ -116,11 +116,96 @@ var Index = (function () {
         });
     };
 
+    var handleDeleteItem = function () {
+        $(document).on("click", ".btnDelete", function () {
+            const idButton = $(this).data("id");
+            if (confirm("apakah anda yakin?")) {
+                $.ajax({
+                    type: "DELETE",
+                    url: url + "/admin/transaksi-detail/" + idButton,
+                    data: {
+                        _token: csrf_token,
+                    },
+                    success: function (response) {
+                        toastr.success("Data Berhasil Disimpan", "Success");
+                        table.ajax.reload();
+                    },
+                    error: function (response) {
+                        $.each(response.responseJSON, function (key, value) {
+                            toastr.error(value);
+                        });
+                    },
+                });
+            }
+        });
+    };
+
+    var handleEditItem = function () {
+        $(document).on("click", ".btnEdit", function () {
+            const idButton = $(this).data("id");
+
+            $.ajax({
+                type: "POST",
+                url: url + "/admin/transaksi-item-detail/" + idButton,
+                data: {
+                    _token: csrf_token,
+                },
+                success: function (response) {
+                    const dataResponse = response.data;
+                    $("#editItemTransaksiDetail").modal("toggle");
+                    $("#namaItem").html(
+                        dataResponse.jenis_sampah_transaksi.nama_sampah
+                    );
+                    $("#editIndex").val(dataResponse.id);
+                    $("#qtyEdit").val(dataResponse.qty);
+                    $("#subTotalEdit").val(dataResponse.subtotal);
+                },
+                error: function (response) {
+                    $.each(response.responseJSON, function (key, value) {
+                        toastr.error(value);
+                    });
+                },
+            });
+        });
+    };
+
+    var handleUpdateItem = function () {
+        $("#formEditItemTransaksi").submit(function (e) {
+            e.preventDefault();
+
+            const form = $(this);
+            let formData = new FormData(form[0]);
+            const itemId = $("#editIndex").val();
+            if (confirm("apakah data sudah sesuai?")) {
+                $.ajax({
+                    type: "POST",
+                    url: url + "/admin/transaksi-item-detail/" + itemId,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        toastr.success("Data Berhasil Diperbarui", "Success");
+                        setTimeout(function () {
+                            location.reload();
+                        }, 3000);
+                    },
+                    error: function (response) {
+                        $.each(response.responseJSON, function (key, value) {
+                            toastr.error(value);
+                        });
+                    },
+                });
+            }
+        });
+    };
     return {
         init: function () {
             handleAddTransaksiDetail();
             handleTransaksiItem();
             handleUpdateTotal();
+            handleDeleteItem();
+            handleEditItem();
+            handleUpdateItem();
         },
     };
 })();
