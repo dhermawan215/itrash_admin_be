@@ -38,9 +38,11 @@ class TransaksiRestController extends Controller
         $transaksi = Transaksi::where('user_id', $user_id)->get();
 
         return \response()->json([
-            'success' => \true,
-            'messagess' => 'berhsail',
-            'transaksi' => $transaksi
+            'meta' => [
+                'success' => \true,
+                'message' => 'berhasil',
+            ],
+            'data' => $transaksi
         ], 200);
     }
 
