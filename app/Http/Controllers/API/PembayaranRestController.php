@@ -13,10 +13,16 @@ class PembayaranRestController extends Controller
     {
         $user_id = Auth::user()->id;
         $pembayaran = Pembayaran::with('pembayaranTransaksi')->where('user_id', $user_id)->get();
+        $res = [];
+        foreach ($pembayaran as $key => $value) {
+            $data['id'] = $value->id;
+            $data['keterangan'] = $value->keterangan;
+            $data['total'] = $value->total;
+            $data['no_transaksi'] = $value->pembayaranTransaksi->no_transaksi;
+            $res = $data;
+        }
 
-        return \response()->json([
-            'success' => \true,
-            'pembayaran' => $pembayaran
-        ], 200);
+
+        return \response()->json(['meta' => ['success' => true, 'message' => 'berhasil'], 'data' => [$res]], 200);
     }
 }

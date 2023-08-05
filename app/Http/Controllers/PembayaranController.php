@@ -15,7 +15,7 @@ class PembayaranController extends Controller
     public function prosesPembayaran($transaksi)
     {
         //memproses log pembayaran saat transaksi berhasil
-        $pembayaran = "Pembayaran berhasil dilakukan sebesar: Rp " . number_format($transaksi->total, 0, ",", ".");
+        $pembayaran = "Pembayaran sebesar: Rp " . number_format($transaksi->total, 0, ",", ".");
         $result = Pembayaran::create([
             'user_id' => $transaksi->user_id,
             'transaksi_id' => $transaksi->id,
