@@ -32,9 +32,11 @@ class JenisSampahController extends Controller
         $jenisSampahDatas = \collect($jenisSampahData);
 
         return \response()->json([
-            'success' => \true,
-            'message' => 'Data berhasil diambil',
-            'jenis_sampah' => $jenisSampahDatas,
+            'meta' => [
+                'success' => \true,
+                'message' => 'berhasil',
+            ],
+            'data' => $jenisSampahDatas,
         ], 200);
     }
 }

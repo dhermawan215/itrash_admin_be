@@ -74,9 +74,11 @@ class TransaksiRestController extends Controller
 
         //response
         return \response()->json([
-            'success' => \true,
-            'messagges' => 'berhasil',
-            'transaksi' => $transaksi,
-        ]);
+            'meta' => [
+                'success' => \true,
+                'messagges' => 'berhasil',
+            ],
+            'data' => $transaksi,
+        ], 200);
     }
 }
