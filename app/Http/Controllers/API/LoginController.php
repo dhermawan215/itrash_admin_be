@@ -39,7 +39,9 @@ class LoginController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'email|required',
             'name' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'handphone' => 'required',
+            'alamat' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -53,6 +55,8 @@ class LoginController extends Controller
                 DB::table('users')->insert([
                     'email' => $request->get('email'),
                     'name' => $request->get('name'),
+                    'handphone' => $request->get('handphone'),
+                    'alamat' => $request->get('alamat'),
                     'password' => Hash::make($request->get('password')),
                     'roles' => 'user',
                     'created_at' => date('Y-m-d H:i:s')
