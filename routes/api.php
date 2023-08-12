@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/auth/logout', [LoginController::class, 'logout']);
+    Route::post('/auth/logout', [LoginController::class, 'logout']);
     Route::post('/pembayaran', [PembayaranRestController::class, 'getPembayaran']);
     Route::post('/transaksi', [TransaksiRestController::class, 'getTransaksi']);
     Route::post('/transaksi/store', [TransaksiRestController::class, 'saveTransaksi']);
